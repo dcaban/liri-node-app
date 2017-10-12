@@ -1,0 +1,24 @@
+{
+  "name": "lbot",
+  "version": "1.0.0",
+  "description": "liri bot is about as useful as siri",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcaban/liri-node-app.git"
+  },
+  "author": "David J Caban",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcaban/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/dcaban/liri-node-app#readme",
+  "dependencies": {
+    "node-spotify-api": "^1.0.7",
+    "request": "^2.83.0",
+    "twitter": "^1.7.1"
+  }
+}
