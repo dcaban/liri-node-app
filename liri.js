@@ -2,7 +2,7 @@ var keys = require("./keys.js")
 var Spotify = require("node-spotify-api");
 var request = require("request");
 var twitter = require("twitter");
-
+var fs = require("fs");
 var nodeArgs = process.argv;
 
 if (process.argv[2] == "movie-this") {
@@ -118,24 +118,64 @@ else if (process.argv[2] == "spotify-this-song") {
 
 
 
-else if (process.argv[2] == "spotify-this-song") {
+else if (process.argv[2] == "my-tweets") {
+
+    var client = new twitter(keys.twitterKey);
+    var params = {
+      screen_name: "djcaban",
+        count: 20
+    };
+    client.get('statuses/user_timeline', "params", function(error, tweets, response) {
+        if (!error) {
+            for (var i = 0; i < tweets.length; i++) {
+                console.log("------------------------------"),
+                console.log(' Tweet: ' + tweets[i].text);
+                console.log('');
+                console.log(" Tweet Number: " + (i + 1));
+                console.log('');
+                console.log(' Created: ' + tweets[i].created_at);
+                console.log("------------------------------");
+            }
+        }
+            });
+
+
+}
+
+
+
+
+
+
+else if (process.argv[2] == "do-what-it-says") {
+
+fs.readFile("random.txt", "utf8", function(error, data) {
+    
+    var dataArr = data.split(",");
+
+    if (error) {
+    return console.log(error);
+  }
+
+  
+  if (dataArr[0] == "spotify-this-song") {
     var songName = "";
 
-    if (process.argv[3] == null){
+    if (dataArr[1] == null){
         songName = "Song for no one"
     }
     else {
-        for (var i = 3; i < nodeArgs.length; i++) {
+        for (var i = 1; i < dataArr.length; i++) {
 
-            if (i > 2 && i < nodeArgs.length) {
+            if (i > 2 && i < dataArr.length) {
 
-                songName = songName + "+" + nodeArgs[i];
+                songName = songName + "+" + dataArr[i];
 
             }
 
             else {
 
-                songName += nodeArgs[i];
+                songName += dataArr[i];
 
             }
         }
@@ -155,5 +195,9 @@ else if (process.argv[2] == "spotify-this-song") {
         console.log("------------------------------")
 
     });
+}
+
+
+});
 }
 
